@@ -5,91 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>송암스페이스센터 우주 가이드 '루니'</title>
     <style>
+        /* 기존 디자인 스타일 유지 */
         body { 
-            margin: 0; padding: 0; 
-            height: 100vh; 
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-start;
-            overflow: hidden; 
-            font-family: 'Nanum Gothic', sans-serif; 
-            color: white;
+            margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+            overflow: hidden; font-family: 'Nanum Gothic', sans-serif; color: white;
             background: #050a15 url('https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
-            background-size: cover;
-            cursor: none !important; 
+            background-size: cover; cursor: none !important; 
         }
-
-        body::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); z-index: -1;
-        }
-
-        #custom-cursor {
-            position: fixed; top: 0; left: 0; font-size: 60px; 
-            pointer-events: none; z-index: 10000; user-select: none; line-height: 1;
-            transform: rotate(-15deg); transition: font-size 0.2s ease, transform 0.2s ease;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-        }
-
-        .container { 
-            width: 95%; height: 100vh; max-width: 1200px; 
-            display: flex; flex-direction: column; align-items: center; 
-            z-index: 1; padding: 5vh 0; box-sizing: border-box;
-        }
-
-        h1 { 
-            font-size: clamp(3rem, 8vh, 5rem); margin: 0 0 10px 0;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8); color: #e0f7fa; 
-            display: flex; align-items: center;
-        }
-        
+        body::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: -1; }
+        #custom-cursor { position: fixed; top: 0; left: 0; font-size: 60px; pointer-events: none; z-index: 10000; user-select: none; line-height: 1; transform: rotate(-15deg); transition: font-size 0.2s ease, transform 0.2s ease; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
+        .container { width: 95%; height: 100vh; max-width: 1200px; display: flex; flex-direction: column; align-items: center; z-index: 1; padding: 5vh 0; box-sizing: border-box; }
+        h1 { font-size: clamp(3rem, 8vh, 5rem); margin: 0 0 10px 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); color: #e0f7fa; display: flex; align-items: center; }
         .intro-text { font-size: clamp(1.5rem, 3.5vh, 2.2rem); margin-bottom: 2vh; color: #FFD700; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
-
-        #chat-box { 
-            width: 100%; flex: 1; min-height: 200px; background: rgba(0, 0, 0, 0.85); 
-            padding: 30px; border-radius: 25px; overflow-y: auto; margin-bottom: 2vh; 
-            border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            box-sizing: border-box; cursor: none !important;
-        }
-        
+        #chat-box { width: 100%; flex: 1; min-height: 200px; background: rgba(0, 0, 0, 0.85); padding: 30px; border-radius: 25px; overflow-y: auto; margin-bottom: 2vh; border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5); box-sizing: border-box; cursor: none !important; }
         .input-area { width: 100%; display: flex; justify-content: center; }
-
-        /* 마이크 버튼 기본 스타일 */
-        #micBtn {
-            padding: 2vh 80px; font-size: clamp(1.8rem, 4vh, 2.5rem); font-weight: bold;
-            border-radius: 60px; background: #222; color: white; border: 2px solid #00d4ff; 
-            cursor: none !important; transition: 0.3s; display: flex; align-items: center; gap: 15px;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-
-        /* ★ 추가됨: 마이크 작동 중 빨간색 스타일 */
-        #micBtn.recording {
-            background-color: #ff0000 !important;
-            border-color: #ff0000 !important;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
-        }
-
+        #micBtn { padding: 2vh 80px; font-size: clamp(1.8rem, 4vh, 2.5rem); font-weight: bold; border-radius: 60px; background: #222; color: white; border: 2px solid #00d4ff; cursor: none !important; transition: 0.3s; display: flex; align-items: center; gap: 15px; box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
+        #micBtn.recording { background-color: #ff0000 !important; border-color: #ff0000 !important; box-shadow: 0 0 30px rgba(255, 0, 0, 0.6); }
         .user-text { color: #ffffff; margin-bottom: 20px; font-size: 1.6rem; text-align: right; font-weight: bold; }
         .ai-text { color: #ffffff; line-height: 1.8; font-size: 1.9rem; font-weight: 500; margin-bottom: 30px; display: flex; flex-direction: column; }
         .ai-text b { color: #00d4ff; }
         .profile-img { width: 55px; height: 55px; object-fit: contain; border-radius: 50%; }
-
         #chat-box::-webkit-scrollbar { width: 12px; }
         #chat-box::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.5); border-radius: 10px; }
     </style>
 </head>
 <body>
     <div id="custom-cursor">🚀</div>
-
     <div class="container">
-        <h1>
-            <img src="{{ url_for('static', filename='루니.gif') }}" width="80" style="margin-right: 10px;">
-            루니의 우주 교실
-        </h1>
+        <h1>루니의 우주 교실</h1>
         <div class="intro-text">우주에 대해 궁금한 게 있다면 무엇이든 물어보세요!</div>
-
         <div id="chat-box"></div>
-
         <div class="input-area">
             <button id="micBtn" onclick="startSTT()">
                 <span class="icon">🎤</span>
@@ -99,6 +44,24 @@
     </div>
 
     <script>
+        // --- [설정 섹션: app.py의 내용을 이곳으로 옮김] ---
+        const API_KEYS = [
+            "AIzaSyCp1bkhAJHPx3W8VrIp3AdUwqyeCUbNIEg",
+            "AIzaSyD4G4tmmqf-pPbBE80Ke0Q6O-CRqeBfnnA",
+            "AIzaSyDQKU4LULuoRvSChvNMiHDDLFN_uHLwy08",
+            "AIzaSyDfEELfGlokVdo3BMzwqcvEJz3hrUs7QDY",
+            "AIzaSyBXjJchrY2WMgRAssg7NQEhMWTq5UR4t9A"
+        ];
+        let currentKeyIndex = 0;
+
+        const SYSTEM_INSTRUCTION = `
+        # 페르소나: 송암스페이스센터 우주 교육 전문가 '루니'
+        - 목적: 초등학생 방문객에게 정확하고 쉬운 천문우주 지식 전달
+        - 답변 원칙: 3~5줄 제한, 친절한 존댓말, 이모지 및 마크다운 기호 사용 금지.
+        - 정보 출처: 송암스페이스센터 홈페이지 (http://www.songamspacecenter.com)
+        `;
+
+        // --- [기존 UI 및 마우스 로직] ---
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = (e.clientX - 20) + 'px';
@@ -111,8 +74,7 @@
 
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
         recognition.lang = 'ko-KR';
-        recognition.interimResults = false;
-
+        
         function startSTT() {
             micBtn.classList.add('recording');
             btnText.innerText = "말씀해 주세요...";
@@ -133,45 +95,52 @@
             btnText.innerText = "눌러서 질문하기";
         }
 
+        // --- [핵심: 파이썬 없이 직접 Gemini 호출하는 로직] ---
         async function sendMsgDirect(message) {
             if(!message) return;
             chatBox.innerHTML += `<div class="user-text"> 👨‍🚀 나: ${message}</div>`;
             const loadingMsg = document.createElement('div');
             loadingMsg.className = 'ai-text';
-            loadingMsg.innerHTML = `<img src="{{ url_for('static', filename='루니.gif') }}" class="profile-img"><span>생각 중이에요...</span>`;
+            loadingMsg.innerHTML = `<span>생각 중이에요...</span>`;
             chatBox.appendChild(loadingMsg);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            try {
-                const response = await fetch('/ask', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({message: message})
-                });
-                const data = await response.json();
-                chatBox.removeChild(loadingMsg);
-                typeWriter(chatBox, data.reply); 
-            } catch (error) {
-                loadingMsg.innerHTML = "오류가 발생했습니다.";
+            for (let attempt = 0; attempt < API_KEYS.length; attempt++) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEYS[currentKeyIndex]}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ role: "user", parts: [{ text: SYSTEM_INSTRUCTION + "\n\n질문: " + message }] }]
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        chatBox.removeChild(loadingMsg);
+                        const reply = data.candidates[0].content.parts[0].text.replace(/\*\*/g, '').trim();
+                        typeWriter(chatBox, reply);
+                        return;
+                    } else if (response.status === 429) {
+                        currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
+            loadingMsg.innerHTML = "통신이 잠시 불안정해요. 다시 시도해 주세요!";
         }
 
         function typeWriter(element, text) {
-            text = text.replace(/<br\s*\/?>/gi, '\n').replace(/\n/g, '<br>');
             const div = document.createElement('div');
             div.className = 'ai-text';
-            div.innerHTML = `<img src="{{ url_for('static', filename='루니.gif') }}" class="profile-img"><span><b>루니:</b><br></span>`; 
+            div.innerHTML = `<span><b>루니:</b><br></span>`; 
             element.appendChild(div);
             const textSpan = div.querySelector('span');
-            const pureText = text.replace(/<br>/g, ' '); 
             
-            const utterance = new SpeechSynthesisUtterance(pureText);
-            
-            // ★ 엣지 선유 목소리 로직 강화
+            const utterance = new SpeechSynthesisUtterance(text);
             const voices = window.speechSynthesis.getVoices();
-            const targetVoice = voices.find(v => v.name.includes('SunHi')) || 
-                                voices.find(v => v.name.includes('Heami'));
-            
+            const targetVoice = voices.find(v => v.name.includes('SunHi')) || voices.find(v => v.name.includes('Heami'));
             if (targetVoice) utterance.voice = targetVoice;
             utterance.lang = 'ko-KR';
             utterance.rate = 1.4;
@@ -180,22 +149,14 @@
             let i = 0;
             function type() {
                 if (i < text.length) {
-                    if (text.toLowerCase().startsWith('<br>', i)) {
-                        textSpan.innerHTML += '<br>'; i += 4; 
-                    } else {
-                        textSpan.innerHTML += text.charAt(i); i++;
-                    }
+                    textSpan.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                    i++;
                     element.scrollTop = element.scrollHeight;
                     setTimeout(type, 60); 
                 }
             }
             type(); 
         }
-
-        // 엣지에서 목소리 목록을 미리 불러오기 위한 장치
-        window.speechSynthesis.onvoiceschanged = () => {
-            window.speechSynthesis.getVoices();
-        };
     </script>
 </body>
 </html>
